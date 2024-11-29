@@ -14,13 +14,10 @@ import { AppService } from './app.service';
       host: 'bqhb6eeylfrj0sodfql0-mysql.services.clever-cloud.com',
       port: 3306,
       username: 'uikodafracmdjk0s',
-      password: 'VOclsCP2fPSK0ORi5TTL',
+      password: 'rug0KhA3VZaIHC8vwpFV',
       database: 'bqhb6eeylfrj0sodfql0',
-      entities: [User, Meeting], // Khai báo entities
+      entities: [User, Meeting], // Đảm bảo bạn đã khai báo entities User và Meeting ở đây
       synchronize: true, // Tự động tạo bảng nếu không có
-      extra: {
-        connectionLimit: 5, // Giới hạn số lượng kết nối đồng thời
-      },
     }),
     TypeOrmModule.forFeature([User, Meeting]),
     Exercises2Module,
