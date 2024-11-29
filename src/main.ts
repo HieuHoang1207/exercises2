@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors(); // Kích hoạt CORS nếu cần
-  await app.listen(3000); // Port sẽ được Vercel tự động định cấu hình
+  const server = express();
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
 ////http://localhost:3000/users?offset=2&limit=5
