@@ -11,11 +11,11 @@ import { AppService } from './app.service';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'bqhb6eeylfrj0sodfql0-mysql.services.clever-cloud.com',
       port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'user_meetings',
+      username: 'uikodafracmdjk0s',
+      password: 'VOclsCP2fPSK0ORi5TTL',
+      database: 'bqhb6eeylfrj0sodfql0',
       entities: [User, Meeting], // Đảm bảo bạn đã khai báo entities User và Meeting ở đây
       synchronize: true, // Tự động tạo bảng nếu không có
     }),

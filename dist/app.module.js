@@ -22,11 +22,11 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'localhost',
+                host: 'bqhb6eeylfrj0sodfql0-mysql.services.clever-cloud.com',
                 port: 3306,
-                username: 'root',
-                password: '123456',
-                database: 'user_meetings',
+                username: 'uikodafracmdjk0s',
+                password: 'VOclsCP2fPSK0ORi5TTL',
+                database: 'bqhb6eeylfrj0sodfql0',
                 entities: [user_entity_1.User, meeting_entity_1.Meeting],
                 synchronize: true,
             }),
