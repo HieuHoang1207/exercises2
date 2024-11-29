@@ -16,8 +16,11 @@ import { AppService } from './app.service';
       username: 'uikodafracmdjk0s',
       password: 'VOclsCP2fPSK0ORi5TTL',
       database: 'bqhb6eeylfrj0sodfql0',
-      entities: [User, Meeting], // Đảm bảo bạn đã khai báo entities User và Meeting ở đây
+      entities: [User, Meeting], // Khai báo entities
       synchronize: true, // Tự động tạo bảng nếu không có
+      extra: {
+        connectionLimit: 5, // Giới hạn số lượng kết nối đồng thời
+      },
     }),
     TypeOrmModule.forFeature([User, Meeting]),
     Exercises2Module,

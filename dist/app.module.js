@@ -29,6 +29,9 @@ exports.AppModule = AppModule = __decorate([
                 database: 'bqhb6eeylfrj0sodfql0',
                 entities: [user_entity_1.User, meeting_entity_1.Meeting],
                 synchronize: true,
+                extra: {
+                    connectionLimit: 5,
+                },
             }),
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, meeting_entity_1.Meeting]),
             exercises2_module_1.Exercises2Module,
