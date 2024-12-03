@@ -9,11 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const exercises2_module_1 = require("./exercises2.module");
 const user_entity_1 = require("./entities/user.entity");
 const meeting_entity_1 = require("./entities/meeting.entity");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
 require('dotenv').config();
 let AppModule = class AppModule {
 };
@@ -32,10 +29,7 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: true,
             }),
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, meeting_entity_1.Meeting]),
-            exercises2_module_1.Exercises2Module,
         ],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
