@@ -14,6 +14,7 @@ const user_entity_1 = require("./entities/user.entity");
 const meeting_entity_1 = require("./entities/meeting.entity");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+require('dotenv').config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -22,16 +23,13 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'sql204.infinityfree.com',
-                port: 3306,
-                username: 'if0_37813266',
-                password: 'jPDXb3R1Bisl5',
-                database: 'if0_37813266_test123',
+                host: process.env.DB_HOST,
+                port: parseInt(process.env.DB_PORT, 10),
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_DATABASE,
                 entities: [user_entity_1.User, meeting_entity_1.Meeting],
                 synchronize: true,
-                extra: {
-                    connectionLimit: 5,
-                },
             }),
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, meeting_entity_1.Meeting]),
             exercises2_module_1.Exercises2Module,

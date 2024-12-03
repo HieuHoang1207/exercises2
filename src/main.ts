@@ -6,7 +6,7 @@ import * as express from 'express';
 async function bootstrap() {
   const server = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
 ////http://localhost:3000/users?offset=2&limit=5
