@@ -8,27 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./entities/user.entity");
-const meeting_entity_1 = require("./entities/meeting.entity");
+const app_service_1 = require("./app.service");
+const mysql = require("mysql2/promise");
 require('dotenv').config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: process.env.DB_HOST,
-                port: parseInt(process.env.DB_PORT, 10),
-                username: process.env.DB_USERNAME,
-                password: process.env.DB_PASSWORD,
-                database: process.env.DB_DATABASE,
-                entities: [user_entity_1.User, meeting_entity_1.Meeting],
-                synchronize: true,
-            }),
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, meeting_entity_1.Meeting]),
+        imports: [],
+        providers: [
+            app_service_1.AppService,
+            {
+                provide: 'DATABASE_POOL',
+                useFactory: async () => {
+                    const pool = mysql.createPool({
+                        host: process.env.DB_HOST,
+                        port: parseInt(process.env.DB_PORT, 10),
+                        user: process.env.DB_USERNAME,
+                        password: process.env.DB_PASSWORD,
+                        database: process.env.DB_DATABASE,
+                        waitForConnections: true,
+                        connectionLimit: 10,
+                        queueLimit: 0,
+                    });
+                    return pool;
+                },
+            },
         ],
     })
 ], AppModule);
