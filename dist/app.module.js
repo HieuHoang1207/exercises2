@@ -8,27 +8,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./entities/user.entity");
-const meeting_entity_1 = require("./entities/meeting.entity");
-require('dotenv').config();
+const mysql = require("mysql2/promise");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: 'bqhb6eeylfrj0sodfql0-mysql.services.clever-cloud.com',
-                port: 3306,
-                username: 'uikodafracmdjk0s',
-                password: 'rug0KhA3VZaIHC8vwpFV',
-                database: 'bqhb6eeylfrj0sodfql0',
-                entities: [user_entity_1.User, meeting_entity_1.Meeting],
-                synchronize: true,
-            }),
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, meeting_entity_1.Meeting]),
+        providers: [
+            {
+                provide: 'DATABASE_POOL',
+                useFactory: async () => {
+                    const pool = mysql.createPool({
+                        host: process.env.DB_HOST,
+                        port: parseInt(process.env.DB_PORT, 10),
+                        user: process.env.DB_USERNAME,
+                        password: process.env.DB_PASSWORD,
+                        database: process.env.DB_DATABASE,
+                        waitForConnections: true,
+                        connectionLimit: 5,
+                        queueLimit: 0,
+                    });
+                    return pool;
+                },
+            },
         ],
     })
 ], AppModule);

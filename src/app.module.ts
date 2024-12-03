@@ -6,24 +6,42 @@ import { User } from './entities/user.entity';
 import { Meeting } from './entities/meeting.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-require('dotenv').config();
+import * as mysql from 'mysql2/promise';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'bqhb6eeylfrj0sodfql0-mysql.services.clever-cloud.com',
-      port: 3306,
-      username: 'uikodafracmdjk0s',
-      password: 'rug0KhA3VZaIHC8vwpFV',
-      database: 'bqhb6eeylfrj0sodfql0',
-      entities: [User, Meeting], // Đảm bảo bạn đã khai báo entities User và Meeting ở đây
-      synchronize: true, // Tự động tạo bảng nếu không có
-    }),
-    TypeOrmModule.forFeature([User, Meeting]),
-    // Exercises2Module,
-  ],
+  // imports: [
+  //   TypeOrmModule.forRoot({
+  //     type: 'mysql',
+  //     host: 'localhost',
+  //     port: 3306,
+  //     username: 'root',
+  //     password: '123456',
+  //     database: 'user_meetings',
+  //     entities: [User, Meeting], // Đảm bảo bạn đã khai báo entities User và Meeting ở đây
+  //     synchronize: true, // Tự động tạo bảng nếu không có
+  //   }),
+  //   TypeOrmModule.forFeature([User, Meeting]),
+  //   Exercises2Module,
+  // ],
   // controllers: [AppController],
-  // providers: [AppService],
+  providers: [
+    // AppService,
+    {
+      provide: 'DATABASE_POOL',
+      useFactory: async () => {
+        const pool = mysql.createPool({
+          host: process.env.DB_HOST,
+          port: parseInt(process.env.DB_PORT as string, 10),
+          user: process.env.DB_USERNAME,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_DATABASE,
+          waitForConnections: true,
+          connectionLimit: 5, // Tối đa 10 kết nối đồng thời
+          queueLimit: 0, // Không giới hạn hàng đợi
+        });
+        return pool;
+      },
+    },
+  ],
 })
 export class AppModule {}
