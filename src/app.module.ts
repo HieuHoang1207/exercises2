@@ -21,9 +21,9 @@ require('dotenv').config();
       synchronize: true, // Tự động tạo bảng nếu không có
     }),
     TypeOrmModule.forFeature([User, Meeting]),
-    Exercises2Module,
+    // Exercises2Module,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  // controllers: [AppController],
+  // providers: [AppService],
 })
 export class AppModule {}
